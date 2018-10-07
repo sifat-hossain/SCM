@@ -1,0 +1,135 @@
+﻿@model  CourseManagemnet.Models.StudentRegistration
+
+@{
+
+
+    ViewBag.Title = "Registration";
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+}
+@{
+    Layout = "~/Views/Shared/layout.cshtml";
+}
+
+<script type="text/javascript">
+
+        $(document).ready(function () {
+            //Dropdownlist Selectedchange event
+            $("#CsId").change(function () {
+                
+                $("#BsId").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetBatchById")',
+                    dataType: 'json',
+                    data: { id: $("#CsId").val() },
+                    success: function (mems) {
+                        console.log("wich ayaeee");
+                        // states contains the JSON formatted list
+                        // of states passed from the controller
+                        $.each(mems, function (i, member) {
+                            $("#BsId").append('<option value="'
+                                + member.Value + '">'
+                                + member.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve states.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+</script>
+
+
+
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    <div style="font-family:'Times New Roman', Times, serif" class="form-horizontal">
+
+        <h2>Registration</h2>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cell, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cell, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cell, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Father_name, "Father's Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Father_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Father_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mother_name, "Mother's Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mother_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mother_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Adress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Course_id, "Course Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Course_id, ViewBag.CourseList as SelectList, "Select", new { id = "CsId", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Course_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Course_id, "Course Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Batch_id, ViewBag.BatchList as SelectList, "Select", new { id = "BsId", @class="form-control" })
+                @Html.ValidationMessageFor(model => model.Batch_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+
+
+        @Html.ActionLink("Logout", "../Login/Logout")
+
+
+    </div>
+}
+<div></div>

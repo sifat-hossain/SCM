@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SCMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBatch">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Start_time" Type="date" Nullable="false" />
+          <Property Name="Duraion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblStudent_info">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cell" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Father_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Mother_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Adress" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Course_id" Type="int" Nullable="false" />
+          <Property Name="Batch_id" Type="int" Nullable="false" />
+          <Property Name="Result" Type="varchar" MaxLength="4" />
+        </EntityType>
+        <Association Name="FK__Student_i__Batch__182C9B23">
+          <End Role="tblBatch" Type="Self.tblBatch" Multiplicity="1" />
+          <End Role="tblStudent_info" Type="Self.tblStudent_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBatch">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblStudent_info">
+              <PropertyRef Name="Batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_i__Cours__173876EA">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="1" />
+          <End Role="tblStudent_info" Type="Self.tblStudent_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblStudent_info">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBatch_tblCourse">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="1" />
+          <End Role="tblBatch" Type="Self.tblBatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBatch">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SCMModelStoreContainer">
+          <EntitySet Name="tblBatch" EntityType="Self.tblBatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStudent_info" EntityType="Self.tblStudent_info" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Student_i__Batch__182C9B23" Association="Self.FK__Student_i__Batch__182C9B23">
+            <End Role="tblBatch" EntitySet="tblBatch" />
+            <End Role="tblStudent_info" EntitySet="tblStudent_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_i__Cours__173876EA" Association="Self.FK__Student_i__Cours__173876EA">
+            <End Role="tblCourse" EntitySet="tblCourse" />
+            <End Role="tblStudent_info" EntitySet="tblStudent_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBatch_tblCourse" Association="Self.FK_tblBatch_tblCourse">
+            <End Role="tblCourse" EntitySet="tblCourse" />
+            <End Role="tblBatch" EntitySet="tblBatch" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SCMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblBatch">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Start_time" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Duraion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblStudent_info" Relationship="Self.FK__Student_i__Batch__182C9B23" FromRole="tblBatch" ToRole="tblStudent_info" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblCourse" Relationship="SCMModel.FK_tblBatch_tblCourse" FromRole="tblBatch" ToRole="tblCourse" />
+        </EntityType>
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblStudent_info" Relationship="Self.FK__Student_i__Cours__173876EA" FromRole="tblCourse" ToRole="tblStudent_info" />
+          <NavigationProperty Name="tblBatches" Relationship="SCMModel.FK_tblBatch_tblCourse" FromRole="tblCourse" ToRole="tblBatch" />
+        </EntityType>
+        <EntityType Name="tblStudent_info">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cell" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Father_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mother_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Course_id" Type="Int32" Nullable="false" />
+          <Property Name="Batch_id" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblBatch" Relationship="Self.FK__Student_i__Batch__182C9B23" FromRole="tblStudent_info" ToRole="tblBatch" />
+          <NavigationProperty Name="tblCourse" Relationship="Self.FK__Student_i__Cours__173876EA" FromRole="tblStudent_info" ToRole="tblCourse" />
+        </EntityType>
+        <Association Name="FK__Student_i__Batch__182C9B23">
+          <End Role="tblBatch" Type="Self.tblBatch" Multiplicity="1" />
+          <End Role="tblStudent_info" Type="Self.tblStudent_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBatch">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblStudent_info">
+              <PropertyRef Name="Batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_i__Cours__173876EA">
+          <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="1" />
+          <End Role="tblStudent_info" Type="Self.tblStudent_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblStudent_info">
+              <PropertyRef Name="Course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SCMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBatches" EntityType="Self.tblBatch" />
+          <EntitySet Name="tblCourses" EntityType="Self.tblCourse" />
+          <EntitySet Name="tblStudent_info" EntityType="Self.tblStudent_info" />
+          <AssociationSet Name="FK__Student_i__Batch__182C9B23" Association="Self.FK__Student_i__Batch__182C9B23">
+            <End Role="tblBatch" EntitySet="tblBatches" />
+            <End Role="tblStudent_info" EntitySet="tblStudent_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_i__Cours__173876EA" Association="Self.FK__Student_i__Cours__173876EA">
+            <End Role="tblCourse" EntitySet="tblCourses" />
+            <End Role="tblStudent_info" EntitySet="tblStudent_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBatch_tblCourse" Association="SCMModel.FK_tblBatch_tblCourse">
+            <End Role="tblCourse" EntitySet="tblCourses" />
+            <End Role="tblBatch" EntitySet="tblBatches" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_tblBatch_tblCourse">
+          <End Type="SCMModel.tblCourse" Role="tblCourse" Multiplicity="1" />
+          <End Type="SCMModel.tblBatch" Role="tblBatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCourse">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBatch">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SCMModelStoreContainer" CdmEntityContainer="SCMEntities">
+          <EntitySetMapping Name="tblBatches">
+            <EntityTypeMapping TypeName="SCMModel.tblBatch">
+              <MappingFragment StoreEntitySet="tblBatch">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Start_time" ColumnName="Start_time" />
+                <ScalarProperty Name="Duraion" ColumnName="Duraion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCourses">
+            <EntityTypeMapping TypeName="SCMModel.tblCourse">
+              <MappingFragment StoreEntitySet="tblCourse">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStudent_info">
+            <EntityTypeMapping TypeName="SCMModel.tblStudent_info">
+              <MappingFragment StoreEntitySet="tblStudent_info">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Cell" ColumnName="Cell" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Father_name" ColumnName="Father_name" />
+                <ScalarProperty Name="Mother_name" ColumnName="Mother_name" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Course_id" ColumnName="Course_id" />
+                <ScalarProperty Name="Batch_id" ColumnName="Batch_id" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

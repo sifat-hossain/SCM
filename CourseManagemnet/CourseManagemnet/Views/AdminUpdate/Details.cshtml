@@ -1,0 +1,93 @@
+﻿@model CourseManagemnet.Models.tblStudent_info
+
+@{
+    ViewBag.Title = "Details";
+}
+@{
+    Layout = "~/Views/Shared/layout.cshtml";
+}
+<h2>Student Details</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cell)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cell)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Father_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Father_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mother_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mother_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Result)
+        </dd>
+
+        <dt>
+            <b>Batch Name</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblBatch.Name)
+        </dd>
+
+        <dt>
+            <b>Course Name</b>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblCourse.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+
+</p>

@@ -1,0 +1,23 @@
+﻿@model CourseManagemnet.Models.tblStudent_info
+
+@{
+    ViewBag.Title = "print";
+}
+
+
+
+<div class="print_div" style="width:800px; height:600px; padding:20px; text-align:center; border: 10px solid #787878">
+    <div style="width:750px; height:550px; padding:20px; text-align:center; border: 5px solid #787878">
+        <span style="font-size:50px; font-weight:bold">Certificate of Completion</span>
+        <br><br>
+        <span style="font-size:25px"><i>This is to certify that</i></span>
+        <br><br>
+        <span style="font-size:30px"><b>@Model.Name</b></span><br /><br />
+        <span style="font-size:25px"><i>has completed the course </i></span> <br /><br />
+        <span style="font-size:30px">@Model.tblCourse.Name</span> <br /><br />
+        <span style="font-size:20px">with score of <b>@Model.Result</b></span> <br /><br /><br /><br />
+    </div>
+</div>
+<div>
+    <center> <button id='print' style='margin-top: 10px; padding: 10px; border: none; text-align: center; background: black; border-radius: 4px; color: #fff; font-weight: bold; cursor: pointer;'>PRINT</button></center>
+</div>

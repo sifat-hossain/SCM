@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SCMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblBatch">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Start_time" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Duraion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tblStudent_info" Relationship="Self.FK__Student_i__Batch__182C9B23" FromRole="tblBatch" ToRole="tblStudent_info" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblCourse" Relationship="SCMModel.FK_tblBatch_tblCourse" FromRole="tblBatch" ToRole="tblCourse" />
+  </EntityType>
+  <EntityType Name="tblCourse">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="tblStudent_info" Relationship="Self.FK__Student_i__Cours__173876EA" FromRole="tblCourse" ToRole="tblStudent_info" />
+    <NavigationProperty Name="tblBatches" Relationship="SCMModel.FK_tblBatch_tblCourse" FromRole="tblCourse" ToRole="tblBatch" />
+  </EntityType>
+  <EntityType Name="tblStudent_info">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cell" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Father_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mother_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Adress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Course_id" Type="Int32" Nullable="false" />
+    <Property Name="Batch_id" Type="Int32" Nullable="false" />
+    <Property Name="Result" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblBatch" Relationship="Self.FK__Student_i__Batch__182C9B23" FromRole="tblStudent_info" ToRole="tblBatch" />
+    <NavigationProperty Name="tblCourse" Relationship="Self.FK__Student_i__Cours__173876EA" FromRole="tblStudent_info" ToRole="tblCourse" />
+  </EntityType>
+  <Association Name="FK__Student_i__Batch__182C9B23">
+    <End Role="tblBatch" Type="Self.tblBatch" Multiplicity="1" />
+    <End Role="tblStudent_info" Type="Self.tblStudent_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBatch">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblStudent_info">
+        <PropertyRef Name="Batch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Student_i__Cours__173876EA">
+    <End Role="tblCourse" Type="Self.tblCourse" Multiplicity="1" />
+    <End Role="tblStudent_info" Type="Self.tblStudent_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCourse">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblStudent_info">
+        <PropertyRef Name="Course_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SCMEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblBatches" EntityType="Self.tblBatch" />
+    <EntitySet Name="tblCourses" EntityType="Self.tblCourse" />
+    <EntitySet Name="tblStudent_info" EntityType="Self.tblStudent_info" />
+    <AssociationSet Name="FK__Student_i__Batch__182C9B23" Association="Self.FK__Student_i__Batch__182C9B23">
+      <End Role="tblBatch" EntitySet="tblBatches" />
+      <End Role="tblStudent_info" EntitySet="tblStudent_info" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Student_i__Cours__173876EA" Association="Self.FK__Student_i__Cours__173876EA">
+      <End Role="tblCourse" EntitySet="tblCourses" />
+      <End Role="tblStudent_info" EntitySet="tblStudent_info" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblBatch_tblCourse" Association="SCMModel.FK_tblBatch_tblCourse">
+      <End Role="tblCourse" EntitySet="tblCourses" />
+      <End Role="tblBatch" EntitySet="tblBatches" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_tblBatch_tblCourse">
+    <End Type="SCMModel.tblCourse" Role="tblCourse" Multiplicity="1" />
+    <End Type="SCMModel.tblBatch" Role="tblBatch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCourse">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblBatch">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
